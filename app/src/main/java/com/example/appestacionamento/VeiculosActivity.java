@@ -113,7 +113,7 @@ public class VeiculosActivity extends AppCompatActivity {
                 v.setProprietarioId(jsonArray.getJSONObject(i).getInt("proprietarioId"));
                 lista.add(v);
             }
-            AdapterVeiculo adapter = new AdapterVeiculo(this, R.layout.adapter, R.id.id_proprietario, lista);
+            AdapterVeiculo adapter = new AdapterVeiculo(this, R.layout.adapter_veiculo, R.id.id_veiculo, lista);
             lvVeiculos.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
