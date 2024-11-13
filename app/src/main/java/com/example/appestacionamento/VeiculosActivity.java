@@ -84,7 +84,7 @@ public class VeiculosActivity extends AppCompatActivity {
     }
 
     public void carregaVeiculos(int proprietarioId) {
-        String url = "http://192.168.200.8:8081/veiculo?proprietarioId=" + proprietarioId;
+        String url = "http://192.168.200.8:8081/veiculo";
         cliente.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

@@ -95,75 +95,76 @@ public class Lista_Proprietario extends AppCompatActivity {
         }
         //digite aqui logo após o catch
         lsproprietarios.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                                                               @Override
-                                                               public boolean onItemLongClick(AdapterView<?> adapterView,
-                                                                                              View view, int i, long l) {
-                                                                   Proprietario p = lista.get(i);
-                                                                   String url =
-                                                                           "http://192.168.200.8:8081/proprietario/" + p.getId();
-                                                                   cliente.delete(url, new AsyncHttpResponseHandler() {
-                                                                       @Override
-                                                                       public void onSuccess(int statusCode,
-                                                                                             cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
-                                                                           if (statusCode == 200) {
-                                                                               Toast.makeText(Lista_Proprietario.this,
-                                                                                       "Proprietário excluído com sucesso", Toast.LENGTH_SHORT).show();
-                                                                               try {
-                                                                                   Thread.sleep(2000);
-                                                                               } catch (
-                                                                                       InterruptedException e) {
-                                                                                   e.printStackTrace();
-                                                                               }
-                                                                               carregaProprietarios();
-                                                                           }
-                                                                       }
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView,
+                                           View view, int i, long l) {
+                Proprietario p = lista.get(i);
+                String url =
+                        "http://192.168.200.8:8081/proprietario/" + p.getId();
+                cliente.delete(url, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode,
+                                          cz.msebera.android.httpclient.Header[] headers, byte[] responseBody) {
+                        if (statusCode == 200) {
+                            Toast.makeText(Lista_Proprietario.this,
+                                    "Proprietário excluído com sucesso", Toast.LENGTH_SHORT).show();
+                            try {
+                                Thread.sleep(2000);
+                            } catch (
+                                    InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            carregaProprietarios();
+                        }
+                    }
 
-                                                                       @Override
+                    @Override
 
 
-                                                                       public void onFailure(int statusCode,
-                                                                                             cz.msebera.android.httpclient.Header[] headers,
-                                                                                             byte[] responseBody,
-                                                                                             Throwable error) {
-                                                                           // Trate os erros adequadamente
-                                                                           Toast.makeText(Lista_Proprietario.this,
-                                                                                   "Erro ao excluir proprietário: " +
-                                                                                           error.getMessage(), Toast.LENGTH_SHORT).show();
-                                                                       }
-                                                                   });
-                                                                   return false;
-                                                               }
-                                                           });
-        //Digite antes do fechamento do método listarTodosProprietários
+                    public void onFailure(int statusCode,
+                                          cz.msebera.android.httpclient.Header[] headers,
+                                          byte[] responseBody,
+                                          Throwable error) {
+                        // Trate os erros adequadamente
+                        Toast.makeText(Lista_Proprietario.this,
+                                "Erro ao excluir proprietário: " +
+                                        error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return false;
+            }
+        });
+        //Digite antes do fechamento do método listar Todos Proprietários
+
         lsproprietarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                                           @Override
-                                                           public void onItemClick(AdapterView<?> adapterView, View
-                                                                   view, int i, long l) {
-                                                               final Proprietario p = lista.get(i);
-                                                               StringBuffer b = new StringBuffer();
-                                                               b.append("id_proprietario: " + p.getId() + "\n");
-                                                               b.append("nome: " + p.getNome() + "\n");
-                                                               b.append("cpf: " + p.getCpf() + "\n");
-                                                               AlertDialog.Builder a = new
-                                                                       AlertDialog.Builder(Lista_Proprietario.this);
-                                                               a.setCancelable(true);
-                                                               a.setTitle("Detalhes do proprietário");
-                                                               a.setMessage(b.toString());
-                                                               a.setIcon(R.drawable.ic_launcher_background);
-                                                               //botão negativo
-                                                               a.setNegativeButton("Editar", new
-                                                                       DialogInterface.OnClickListener() {
-                                                                           @Override
-                                                                           public void onClick(DialogInterface
-                                                                                                       dialogInterface, int i) {
-                                                                               Intent i2 = new
-                                                                                       Intent(Lista_Proprietario.this, Alterar.class);
-                                                                               i2.putExtra("proprietario", p);
-                                                                               startActivity(i2);
-                                                                           }
-                                                                       });
-                                                               a.show();
-                                                           }
-                                                       });
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View
+                    view, int i, long l) {
+                final Proprietario p = lista.get(i);
+                StringBuffer b = new StringBuffer();
+                b.append("id_proprietario: " + p.getId() + "\n");
+                b.append("nome: " + p.getNome() + "\n");
+                b.append("cpf: " + p.getCpf() + "\n");
+                AlertDialog.Builder a = new
+                        AlertDialog.Builder(Lista_Proprietario.this);
+                a.setCancelable(true);
+                a.setTitle("Detalhes do proprietário");
+                a.setMessage(b.toString());
+                a.setIcon(R.drawable.ic_launcher_background);
+                //botão negativo
+                a.setNegativeButton("Editar", new
+                        DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface
+                                                        dialogInterface, int i) {
+                                Intent i2 = new
+                                        Intent(Lista_Proprietario.this, Alterar.class);
+                                i2.putExtra("proprietario", p);
+                                startActivity(i2);
+                            }
+                        });
+                a.show();
+            }
+        });
     }
 }
